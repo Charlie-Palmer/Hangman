@@ -46,7 +46,7 @@ class Hangman:
             if len(guess) != 1 or not guess.isalpha():
              print(f'Invalid letter. Please enter a single alphabetical letter')  
              
-            elif guess in self.word_guessed: #blocks repeat guesses
+            elif guess in self.list_of_guesses: #blocks repeat guesses
              print(f'You already tried that letter!')
             
             else: #checks guess and adds to list of guesses
@@ -56,5 +56,24 @@ class Hangman:
            
         return self.ask_for_input
     
-hangman_game = Hangman(word_list)
-hangman_game.ask_for_input()
+
+def play_game(word_list):
+    '''
+    Function to play the hangman game
+    '''
+    num_lives = 5
+    game = Hangman(word_list, num_lives)
+    while True:
+        if game.num_lives == 0:
+            print(f'You lost!')
+            break
+        
+        elif game.num_lives != 0 and game.num_letters < 0:
+            print('Congratulations. You won the game!')
+            break    
+        elif game.num_letters > 0:
+            game.ask_for_input()
+        
+
+play_game(word_list)
+    
